@@ -1,15 +1,12 @@
 package by.htp.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.bean.Book;
 import by.htp.bean.User;
 import by.htp.controller.action.BaseAction;
 import by.htp.dao.BaseDaoImpl;
@@ -20,20 +17,10 @@ public class SimpleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BaseDaoImpl db = new BaseDaoImpl();
     private SearchData servis = new SearchData();
-    private User us = null;
     private String pageUser = "/user.jsp";
 	private String pageAdmin = "/admin.jsp";
 	private String pageError = "/error.jsp";
-	private List<Book> list = new ArrayList<>();
-	private List<String> valuesList = new ArrayList<String>();
-	
-	{
-		valuesList.add("one");
-		valuesList.add("two");
-		valuesList.add("three");
-		valuesList.add("four");
-		valuesList.add("five");
-	}
+	private User us = new User();
     public SimpleServlet() {
         super();
 
@@ -99,7 +86,7 @@ public class SimpleServlet extends HttpServlet {
 //		}else if(param.equals("delete")) {
 //			System.out.println("delete!!!");
 //			System.out.println();
-//			 int f= Integer.valueOf(request.getParameter("book_id"));
+//			int f= Integer.valueOf(request.getParameter("book_id"));
 //			 
 //			System.out.println(f);
 //			db.delete(f);
@@ -147,12 +134,14 @@ public class SimpleServlet extends HttpServlet {
 //			
 //		}
 //	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doPost");
 		String action = request.getParameter("action");
-		BaseAction currentAction = ActionManager.defineServerAction(action, request, response);
-		currentAction.todoAction(request, response);
+		BaseAction currentAction = ActionManager.defineServerAction(action, request, response, us);
+		us = currentAction.todoAction(request, response, us);
 		
+	}	
 }
 
-}
+

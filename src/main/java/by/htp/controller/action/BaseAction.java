@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.htp.bean.User;
+
 public interface BaseAction {
 	/**
 	 * 
@@ -14,6 +16,7 @@ public interface BaseAction {
 	 * @return
 	 * @throws SQLException
 	 */
-	String todoAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException ;
-	
+	User todoAction(HttpServletRequest request, HttpServletResponse response, User us) throws ServletException, IOException ;
 }
+
+	

@@ -4,7 +4,9 @@ public class User {
 	private String login;
 	private String password;
 	private String Role;
+	private int editId;
 	
+
 	public User() {
 		super();		
 	}
@@ -38,6 +40,13 @@ public class User {
 		this.password = password;
 	}
 	
+	public int getEditId() {
+		return editId;
+	}
+
+	public void setEditId(int editId) {
+		this.editId = editId;
+	}
 	
 	
 }

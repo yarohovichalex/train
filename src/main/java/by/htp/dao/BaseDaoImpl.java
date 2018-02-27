@@ -55,36 +55,36 @@ public class BaseDaoImpl implements BaseDao{
 		return us;		
 	}
 	
-	public int methodSetId() {
-		List<Integer> idList = new ArrayList<>();
-		int num = 0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-		} catch (ClassNotFoundException e1) {			
-			e1.printStackTrace();
-		}
-		
-		try(Connection cn = DriverManager.getConnection(url,"root","root")){
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select id from book;");
-			
-			while(rs.next()) {
-				idList.add(rs.getInt("id"));				
-			}
-			for(int i = 0; i < idList.size(); i++) {
-				if(idList.get(i)==0) {
-					return i;
-				}else {
-					
-				}
-			
-			}
-			return idList.size();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}	
-		return 0;
-	}
+//	public int methodSetId() {
+//		List<Integer> idList = new ArrayList<>();
+//		int num = 0;
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");			
+//		} catch (ClassNotFoundException e1) {			
+//			e1.printStackTrace();
+//		}
+//		
+//		try(Connection cn = DriverManager.getConnection(url,"root","root")){
+//			Statement st = cn.createStatement();
+//			ResultSet rs = st.executeQuery("select id from book;");
+//			
+//			while(rs.next()) {
+//				idList.add(rs.getInt("id"));				
+//			}
+//			for(int i = 0; i < idList.size(); i++) {
+//				if(idList.get(i)==0) {
+//					return i;
+//				}else {
+//					
+//				}
+//			
+//			}
+//			return idList.size();
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}	
+//		return 0;
+//	}
 	
 	public List<Book> searchBook(String bookName) {
 		list.clear();
@@ -99,10 +99,15 @@ public class BaseDaoImpl implements BaseDao{
 			ResultSet rs = st.executeQuery("select * from book;");
 			
 
-			while(rs.next()) {				
-				list.add(new Book(rs.getString("nameBook"), rs.getString("nameAuthor"), rs.getInt("publishYear"), rs.getInt("id")));				
-				System.out.println(rs.getString("nameBook"));
-			}
+//			while(rs.next()) {
+//				String nameBook = rs.getString("nameBook");
+//				String nameAuthor = rs.getString("nameAuthor");
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.setTime(rs.getDate("publishDate"));
+//				int id  = rs.getInt("id");
+//				list.add(new Book(nameBook, nameAuthor, calendar, id));				
+//				System.out.println(rs.getString("nameBook"));
+//			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}	
@@ -125,7 +130,6 @@ public class BaseDaoImpl implements BaseDao{
 			
 
 			while(rs.next()) {				
-				//list.add(new Book(rs.getString("nameBook")));
 				String string = rs.getString("nameBook");
 				if(string.contains(bookName)) {
 					System.out.println(rs.getString("nameBook"));
@@ -144,26 +148,26 @@ public class BaseDaoImpl implements BaseDao{
 		return bookNameList;
 	}
 	
-public void criate(Book entity) {		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-		} catch (ClassNotFoundException e1) {			
-			e1.printStackTrace();
-		}		
-		try(Connection cn = DriverManager.getConnection(url,"root","root")){
-			String sql = "INSERT INTO book(id, nameBook, nameAuthor, publishYear) VALUES (?, ?, ?, ?)";
-			PreparedStatement ps = cn.prepareStatement(sql);
-			ps.setInt(1, entity.getId());
-			ps.setString(2, entity.getTittle());
-			ps.setString(3, entity.getAuthorName());
-			ps.setInt(4,entity.getYear());
-			ps.executeUpdate();
-
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}		
-	}
+//public void criate(Book entity) {		
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");			
+//		} catch (ClassNotFoundException e1) {			
+//			e1.printStackTrace();
+//		}		
+//		try(Connection cn = DriverManager.getConnection(url,"root","root")){
+//			String sql = "INSERT INTO book(id, nameBook, nameAuthor, publishYear) VALUES (?, ?, ?, ?)";
+//			PreparedStatement ps = cn.prepareStatement(sql);
+//			ps.setInt(1, entity.getId());
+//			ps.setString(2, entity.getTittle());
+//			ps.setString(3, entity.getAuthorName());
+//			ps.setInt(4,entity.getYear());
+//			ps.executeUpdate();
+//
+//			
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}		
+//	}
 	public void delete(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");			
@@ -179,8 +183,34 @@ public void criate(Book entity) {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}	
-		
-	
 }
+
+	@Override
+	public List<Book> searchBookDao(String bookName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Book> outputBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void criate(Book entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public void editBook(int id, Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 }

@@ -1,9 +1,11 @@
 package by.htp.bean;
 
+import java.util.Date;
+
 public class Book {
 	private int id;
 	private String tittle;
-	private int year;
+	private Date date;
 	private String authorName;
 	
 //	public Book() {
@@ -15,26 +17,26 @@ public class Book {
 		this.tittle = tittle;		
 	}
 	
-	public Book(String tittle, String authorName, int year) {
+	public Book(String tittle, String authorName, Date date) {
 		
 		this.tittle = tittle;
-		this.year = year;
+		this.date = date;
 		this.authorName = authorName;
 	}
-public Book(String tittle, String authorName, int year, int id) {
+public Book(String tittle, String authorName, Date date, int id) {
 		
 		this.tittle = tittle;
-		this.year = year;
+		this.date = date;
 		this.authorName = authorName;
 		this.id = id;
 	}
 	
-	public int getYear() {
-		return year;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	public String getTittle() {
@@ -55,7 +57,7 @@ public Book(String tittle, String authorName, int year, int id) {
 
 	@Override
 	public String toString() {
-		return "Book [tittle=" + tittle + ", year=" + year + ", authorName=" + authorName + "]";
+		return "Book [tittle=" + tittle + ", year=" + date + ", authorName=" + authorName + "]";
 	}
 
 	public int getId() {

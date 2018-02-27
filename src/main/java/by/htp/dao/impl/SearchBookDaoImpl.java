@@ -10,51 +10,50 @@ import java.util.Date;
 import java.util.List;
 
 import by.htp.bean.Book;
-import by.htp.bean.User;
 import by.htp.dao.BaseDao;
 
-public class OutputBookDaoImpl implements BaseDao{
+public class SearchBookDaoImpl implements BaseDao{
 	private static final String url = "jdbc:mysql://localhost/logindb?"
 			+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode"
 			+ "=false&serverTimezone=UTC&useSSL=false";
-	List<Book> list = new ArrayList<>();
-	private User us;
 	
-	public OutputBookDaoImpl(User us) {
-		if(us != null) {
-			this.us = us;
-		}		
-	}
+	public List<Book> searchBookDao(String bookName) {
+		
+	List<Book> bookNameList = new ArrayList<>();
 	
-	public List<Book> outputBook() {
-	list.clear();
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");			
 	} catch (ClassNotFoundException e1) {			
 		e1.printStackTrace();
-	}	
+	}
+	
 	try(Connection cn = DriverManager.getConnection(url,"root","root")){
 		Statement st = cn.createStatement();
 		ResultSet rs = st.executeQuery("select * from book;");
 		
+
 		while(rs.next()) {
+			
 			String nameBook = rs.getString("nameBook");
-			String nameAuthor = rs.getString("nameAuthor");
-			Date date = rs.getDate("publishDate");
-			int id  = rs.getInt("id");
-			list.add(new Book(nameBook, nameAuthor, date, id));				
-			System.out.println(nameBook);			
-		}
+			nameBook = nameBook.toUpperCase();
+			if(nameBook.contains(bookName.toUpperCase())) {
+				String nameAuthor = rs.getString("nameAuthor");
+				Date date = rs.getDate("publishDate");
+				int id  = rs.getInt("id");
+				bookNameList.add(new Book(nameBook, nameAuthor, date, id));				
+				System.out.println(nameBook);
+			}			
+		}		
 	}catch(SQLException e) {
 		e.printStackTrace();
 	}	
-	return list;
-}
+	return bookNameList;
+	}
 
 	
 
 	@Override
-	public List<Book> searchBookDao(String bookName) {
+	public List<Book> outputBook() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,5 +75,7 @@ public class OutputBookDaoImpl implements BaseDao{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }
+

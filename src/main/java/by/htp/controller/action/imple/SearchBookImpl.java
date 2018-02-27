@@ -15,29 +15,30 @@ import by.htp.bean.Book;
 import by.htp.bean.User;
 import by.htp.controller.action.BaseAction;
 import by.htp.dao.BaseDao;
-import by.htp.dao.impl.OutputBookDaoImpl;
+import by.htp.dao.impl.SearchBookDaoImpl;
 
-public class OutputAllBook  implements BaseAction{
+public class SearchBookImpl implements BaseAction{
+	List<Book> list1 = new ArrayList<>();
+	BaseDao dao = new SearchBookDaoImpl();
 	private User us;
-	public OutputAllBook(User us) {
+	
+	public SearchBookImpl(User us) {
 		if(us != null) {
 			this.us = us;
-		}		
+		}
 	}
-	
-	List<Book> list = new ArrayList<>();
-	BaseDao dao = new OutputBookDaoImpl(us);
+	 
 
 
 	@Override
 	public User todoAction(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
-		System.out.println("output!!!");
-		list = dao.outputBook();				
+		System.out.println("search!!!");
+		String name = request.getParameter("search");
+		list1 = dao.searchBookDao(name);
 		RequestDispatcher dispatcher = null;
 		
-		request.setAttribute("user_name", user.getLogin());
-		System.out.println("us: " + us.getLogin() + ", user: " + user.getLogin());
-		request.setAttribute("listbook", list);
+		System.out.println("razmer: " + list1.size());		
+		request.setAttribute("listbook", list1);
 		dispatcher = request.getRequestDispatcher(PAGE_ADMIN);
 		dispatcher.forward(request, response);
 		
